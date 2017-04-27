@@ -79,7 +79,7 @@ queue_size = 20
 workers = 10
 ```
 
-The main advantage of parallelism is to do multiple things at once. To show the great advantage of multiprocessing, the function to create our input will take more than 1 second.
+The main advantage of parallelism is to do multiple things at once. To show the great advantage of multiprocessing, the function to create our input will take more than 1 second. In your pipeline, this function would go fetch datas on disk, call a database, stream inside a HDF5 file, etc.
 
 ```python
 def get_input():
@@ -91,7 +91,7 @@ def get_input():
 ```
 
 
-For our experiment, using TensorFlow's FIFOQueue will make everything simpler and is the first step to speed up your pipeline. More informations on queues [here ](https://www.tensorflow.org/programmers_guide/threading_and_queues)
+For our experiment, using TensorFlow's FIFOQueue will make everything simpler and is the first step to speed up our pipeline. More informations on queues [here ](https://www.tensorflow.org/programmers_guide/threading_and_queues).
 
 ```python
 inp = K.placeholder(input_batch)
@@ -101,7 +101,7 @@ x1, y1 = queue.dequeue()
 enqueue = queue.enqueue([inp, inp1])
 ```
 
-We then need a model. We'll use VGG16 with an MAE loss trained by the RMSProp optimizer. I set the output of the network to be the same as our output_shape.
+We then need a model. We'll use VGG16 with an MAE loss trained with the RMSProp optimizer. I set the output of the network to be the same as our output shape `[12,12,80]`.
 
 ```python
 model = keras.applications.VGG16(False, "imagenet", x1, input_batch[1:])
