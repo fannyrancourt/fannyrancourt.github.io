@@ -4,12 +4,23 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Hi!
+My name is Frédéric Branchaud-Charron, I'm currently doing my master at Université de Sherbrooke. My main focus is on localization and segmentation using deep learning! I'm actively contributing to many projects like [Keras](keras.io) or [keras-contrib](https://github.com/farizrahman4u/keras-contrib).
 
-### More Information
+On this site, I'll share many of my experiments using Keras and TensorFlow (PyTorch?).
 
-A place to include any other types of information that you'd like to include about yourself.
+### Interests
+* Localization/ segmentation
+* Data pipeline
+* GANs
+* Functional programming
+
+### Where to find me?
+
+I'll be at CVPR 2017!
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+* [frederic.branchaud-charron@usherbrooke.ca](mailto:frederic.branchaud-charron@usherbrooke.ca)
+
+* Keras' slack @dref360

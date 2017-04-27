@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Improving the inpout pipeline with Keras
+title: Improving the input pipeline with Keras
 ---
 
 While most people do not care about the efficiency of their input pipeline, it can affect the efficiency of their research by a magnitude. In this post, I'll show how you can speed up your input pipeline with processes and/or threads.
