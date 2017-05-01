@@ -8,7 +8,7 @@ While most people do not care about the efficiency of their input pipeline, it c
 **DISCLAIMER**
 If you can make any of the tests faster, please send me an e-mail! I'm genuinely interested.
 
-### Framework
+### Libraries
 I'll be using Keras 2.0.0 with TensorFlow 1.0.1.
 
 
@@ -23,6 +23,9 @@ import keras.backend as K
 import numpy as np
 import tensorflow as tf
 from keras.layers import Conv2D
+
+def prod(factors):
+    return reduce(operator.mul, factors, 1)
 
 sess = tf.Session()
 K.set_session(sess)
@@ -64,13 +67,10 @@ def threadsafe_generator(f):
 
 
 Let's create our problem now! Let's say we have images with shape [200,200,3] and the ground truth are images with shape [12,12,80]. Feel free to modify any of the constants below.
-For each test, we will start `workers = 10` threads/processes. In every case, the queue will have a size of `queue_size = 20`. To be able to run on pretty much any GPU the batch size will be same (10).
+For each test, we will start `workers = 10` threads/processes. In every case, the queue will have a size of `queue_size = 20`. To be able to run on pretty much any GPU the batch size will be of 10. `TRAINING = True` is a constant to provide to `Keras` when calling sess.run. This allows models using `BatchNorm` (like `keras.applications.Resnet50`) to run.
 
 
 ```python
-def prod(factors):
-    return reduce(operator.mul, factors, 1)
-
 TRAINING = True
 batch_size = 10
 input_batch = [batch_size, 200, 200, 3]
@@ -79,7 +79,7 @@ queue_size = 20
 workers = 10
 ```
 
-The main advantage of parallelism is to do multiple things at once. To show the great advantage of multiprocessing, the function to create our input will take more than 1 second. In your pipeline, this function would go fetch datas on disk, call a database, stream inside a HDF5 file, etc.
+The main advantage of parallelism is to do multiple things at once. To show the great advantage of multiprocessing, the function to create our input will take more than 1 second to process. In your pipeline, this function would go fetch datas on disk, call a database, stream inside a HDF5 file, etc.
 
 ```python
 def get_input():
@@ -91,17 +91,17 @@ def get_input():
 ```
 
 
-For our experiment, using TensorFlow's FIFOQueue will make everything simpler and is the first step to speed up our pipeline. More informations on queues [here ](https://www.tensorflow.org/programmers_guide/threading_and_queues).
+For our experiment, using TensorFlow's FIFOQueue will make everything simpler and is the first step to speed up our pipeline. More informations on queues [here](https://www.tensorflow.org/programmers_guide/threading_and_queues).
 
 ```python
 inp = K.placeholder(input_batch)
 inp1 = K.placeholder(output_batch)
 queue = tf.FIFOQueue(queue_size, [tf.float32, tf.float32], [input_batch, output_batch])
-x1, y1 = queue.dequeue()
+x1, y1 = queue.dequeue() # Tensors for the input and the ground truth.
 enqueue = queue.enqueue([inp, inp1])
 ```
 
-We then need a model. We'll use VGG16 with an MAE loss trained with the RMSProp optimizer. I set the output of the network to be the same as our output shape `[12,12,80]`.
+We then need a model. We'll use VGG16 with an MAE loss trained with the RMSProp optimizer. I set the output of the network to be the same as our output shape `[12,12,80]`. The model is not important for this blog post so feel free to change it.
 
 ```python
 model = keras.applications.VGG16(False, "imagenet", x1, input_batch[1:])
@@ -144,7 +144,7 @@ print("Took : ", time.time() - start)
 
 As expected, this takes more than 300 seconds since our `get_input()` function is doing a 1 second sleep. Let's use the FIFOQueue now.
 
-We need to starts threads to do the enqueuing. I'm not aware of any way to do this with processes, but any contribution is welcomed! Using the queue will save us one copy from Python to C++ because of the feed_dict. Since the queue is already in C++ we do not need to pay this cost. I added some code to empty the queue at the end to let the threads die.
+We need to start threads to do the enqueuing. I'm not aware of any way to do this with processes, but any contribution is welcomed! Using the queue will save us one copy from Python to C++ because of the feed_dict. Since the queue is already in C++ we do not need to do the copy. I added some code to empty the queue at the end to let the threads die.
 
 
 
@@ -179,7 +179,7 @@ print("DONE Queue")
     Took :  61.429038286209106
     DONE Queue
 
-Great improvement! More than 5x speedup! Let's compare it to the GeneratorEnqueuer which uses processes to feed a queue but is still using the feed_dict. The main drawback of this approach is that we need the GIL so that our generator do not get iterate over at the same time. Also, we need to sleep while the queue is empty.
+Great improvement! More than 5x speedup! Let's compare it to the GeneratorEnqueuer which uses processes to feed a queue but is still using the feed_dict. The main drawback of this approach is that we need the GIL so that our generator do not get iterate over by multiple threads at the same time. Also, we need to sleep while the queue is empty.
 
 
 ```python
@@ -198,7 +198,7 @@ enqueuer.start(max_q_size=queue_size, workers=workers)
 time.sleep(1)
 print("Keras enqueuer using multiprocess")
 start = time.time()
-for i in (range(10)):  # EPOCH
+for i in range(10):  # EPOCH
     for j in range(30):  # Batch
         while not enqueuer.queue.qsize():
             time.sleep(0.5)
