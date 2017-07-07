@@ -240,6 +240,13 @@ enqueuer.stop()
 
 So it's better than nothing, but the GIL is really killing everything.
 
+| Method | Time (s)|
+|--------|------|
+| No threading | 369 |
+| FIFOQueue | 61 |
+| Keras multiprocessed | 32 |
+| Keras threaded | 301 |
+
 
 # Conclusion
-So we saw how to speed up an input pipeline. While FIFOQueues are a big speed up, multiprocessing can speed up the pipeline even more!
+So we saw how to speed up an input pipeline. While FIFOQueues are a big speed up, multiprocessing can speed up the pipeline even more! TFRecord should soon be supported by Keras and I'll update this post when it's the case. Also, there should be a way to feed a FIFOQueue using multiprocessing.

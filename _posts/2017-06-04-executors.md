@@ -126,3 +126,5 @@ Pretty much the same as the executor. But, the data that `GeneratorEnqueuer` wil
 # Conclusion
 
 In this post, we've shown how to use an executor. In the future, this work should be integrated with `Keras` `model.*_generator`.
+
+**UPDATE** This feature has been merged into `Keras` 2.0.5 and it is named Sequence. 
