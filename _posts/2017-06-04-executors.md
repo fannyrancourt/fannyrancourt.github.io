@@ -2,13 +2,16 @@
 layout: post
 title: Ordered multi-processed generator in Keras
 ---
+** UPDATE **
+This post has made it into Keras as of Keras 2.0.6.
+
 
 If you have used Keras extensively, you are probably aware that using
 `model.fit_generator(..., pickle_safe=True)` may not do what you expect.
 In fact, generators cannot be shared across processes in `Python`. This cause your generator to be copied instead. So your training loop will see the same data over and over again. While this is not that big of a deal in most cases, this cause the function `model.predict_generator` to be useless for `workers` > 1.
 
 ## Solving the problem
-To solve this problem, I have been toying around with `Pytorch`'s [Dataset](http://pytorch.org/docs/_modules/torch/utils/data/dataset.html#Dataset) to use it into `Keras` code base. In this post, I'll share my solution that I hope, will be merged into `Keras` soon enough.
+To solve this problem, I have been toying around with `Pytorch`'s [Dataset](http://pytorch.org/docs/_modules/torch/utils/data/dataset.html#Dataset) to add it into `Keras` code base. In this post, I'll share my solution that I hope, will be merged into `Keras` soon enough.
 
 ## Code
 
@@ -127,4 +130,4 @@ Pretty much the same as the executor. But, the data that `GeneratorEnqueuer` wil
 
 In this post, we've shown how to use an executor. In the future, this work should be integrated with `Keras` `model.*_generator`.
 
-**UPDATE** This feature has been merged into `Keras` 2.0.5 and it is named Sequence. 
+**UPDATE** This feature has been merged into `Keras` 2.0.5 and it is named Sequence.
