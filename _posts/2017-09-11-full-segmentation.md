@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A full-fledge segmentation pipeline using Keras and Keras-Transform
+title: A segmentation pipeline using Keras and Keras-Transform
 ---
 
 Here's a basic pipeline which handles data augmentation and allows you to quickly start training. In this exemple, `create_model` and `get_paths` should be created by you.
