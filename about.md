@@ -22,6 +22,13 @@ On this site, I'll share many of my experiments using Keras and TensorFlow (PyTo
 * GANs
 * Functional programming
 
+### Academic work
+* Publications
+ * MIO-TCD: A new benchmark dataset for vehicle classification and localization, Zhiming Luo, Frederic B.-Charron & al., Accepted IEEE TIP 2018
+* Other
+ * Reviewer MICCAI 2017
+ * Reviewer TSWC 2018
+
 ### Where to find me?
 In my lab, University of Sherbrooke (D3-2003)
 
