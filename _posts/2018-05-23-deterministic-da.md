@@ -28,10 +28,10 @@ class MySequence(keras.utils.Sequence):
 
 ### In Keras 2.1.7
 
-Thanks to [vkk800](https://github.com/vkk800), this API has made it into Keras and will be released soon. Here's a **simple** example.
+Thanks to [vkk800](https://github.com/vkk800), this API has made it into Keras and is now released. Here's a **simple** example.
 
 ---
-We first import OpenCV and updated ImageDataGenerator
+We first import OpenCV and the updated ImageDataGenerator
 ```python
 import cv2
 import numpy as np
@@ -45,7 +45,7 @@ We only need to inherit a Sequence. Since this is an example, this will only ret
 ```python
 class MySequence(Sequence):
     def __init__(self):
-        self.path = '/home/fred/Images/cat.jpg'
+        self.path = '~Images/cat.jpg'
         self.imgaug = ImageDataGenerator(rotation_range=20,
                                          rescale=1/255.,
                                          width_shift_range=10)
@@ -54,7 +54,8 @@ class MySequence(Sequence):
         return 10
 
     def __getitem__(self, idx):
-        X = np.array([cv2.resize(cv2.imread(self.path), (100, 100)) for _ in range(10)]).astype(np.float32)  # Fake batch of cats
+        X = np.array([cv2.resize(cv2.imread(self.path), (100, 100))
+                      for _ in range(10)]).astype(np.float32)  # Fake batch of cats
         y = np.copy(X)
         for i in range(len(X)):
             # This creates a dictionary with the params
