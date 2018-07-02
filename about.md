@@ -20,7 +20,7 @@ I'm also project manager of [keras-preprocessing](https://github.com/keras-team/
 
 I also built a new library [keras-transform](https://github.com/Dref360/keras-transform) to perform flexible data augmentation.
 
-On this blog, I'll share many of my experiments using Keras and TensorFlow. I'm also using Pytorch for some projects
+On this blog, I'll share many of my experiments using Keras and TensorFlow. I'm also using Pytorch for some projects.
 
 ### Interests
 * Localization/ segmentation
