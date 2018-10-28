@@ -29,6 +29,7 @@
           <nav>
             <a href="{{ site.baseurl }}/">Blog</a>
             <a href="{{ site.baseurl }}/about">About</a>
+            <a id="color-switcher" onclick="toggleTheme()">🌙</a>
           </nav>
         </header>
       </div>
@@ -47,5 +48,7 @@
     </div>
 
     {% include analytics.html %}
+
+    {% include color-switcher-js.html %}
   </body>
 </html>
