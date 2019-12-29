@@ -41,7 +41,8 @@ On this blog, I'll share many of my experiments using Keras and TensorFlow. I'm 
 
 ### Where to find me?
 
-I'm currently working in Montréal at ElementAI.
+I'm currently working in Montréal at ElementAI in the active learning and
+uncertainty estimation team..
 
 ~~In my lab, University of Sherbrooke (D3-2003)~~
 
@@ -57,4 +58,4 @@ I'm currently working in Montréal at ElementAI.
 
 * Keras slack @dref360. Feel free to PM me!
 
-* [My Resume as of May 2018](/images/resume.pdf)
+* [My Resume as of December 2019](/images/resume.pdf)
