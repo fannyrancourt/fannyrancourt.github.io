@@ -3,13 +3,13 @@
 #
 
 # Name of your site (displayed in the header)
-name: Frédéric Branchaud-Charron
+name: Fanny Rancourt
 
 # Short bio or description (displayed in the header)
-description: "Love FOSS, ML and multiprocessing"
+description: "Statistics & Data Science"
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars2.githubusercontent.com/u/8976546?v=3&u=bb2e0b62c18ce9f14ac28ff9ae1b8c1090b699c5&s=400
+avatar: https://avatars3.githubusercontent.com/u/61950751?s=400&u=abfa6a926fba2d2fb9ac44f3ae9c872c1ad1b52b&v=4
 
 #
 # Flags below are optional
@@ -18,12 +18,12 @@ avatar: https://avatars2.githubusercontent.com/u/8976546?v=3&u=bb2e0b62c18ce9f14
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: frederic.branchaud-charron@usherbrooke.ca
+  email: fanny.rancourt@gmail.com
   facebook:
   flickr:
-  github: Dref360
+  github: fannyrancourt
   instagram:
-  linkedin: fr%C3%A9d%C3%A9ric-branchaud-charron-5387b8ba/
+  linkedin: fanny-rancourt-41a433185/
   pinterest:
   rss: yes # just type anything here for a working RSS icon
   twitter:
@@ -41,7 +41,7 @@ google_analytics:
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: http://dref360.github.io
+url: http://fannyrancourt.github.io
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
