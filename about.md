@@ -23,4 +23,4 @@ My name is Fanny Rancourt, I'm currently a **Data Analyst** at **Commission scol
 
 * [fanny.rancourt@gmail.com](mailto:fanny.rancourt@gmail.com)
 
-* [My Resume as of March 2020](/images/resume.pdf)
+* [My Resume as of March 2020](/images/Resume_032020.pdf)
